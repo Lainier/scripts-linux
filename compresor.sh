@@ -1,7 +1,6 @@
 #!/bin/bash
 
 function comprimir(){
-    echo "Los ficheros son $files"
     tar czvf $destino $files
 }
 
@@ -24,19 +23,19 @@ do
 	echo "Introduzca una opción: "
   read opcion
   case $opcion in
-		1) echo 'Introduce los nombres de ficheros, separados por espacios:'
+       1) echo 'Introduce los nombres de ficheros, separados por espacios:'
        read files
        echo 'Introduce la ruta completa al fichero tgz destino, extensión incluida:'
        read destino
        comprimir
        ;;
-		2) echo 'Introduce el nombre de un fichero tgz, extensión incluida:'
+       2) echo 'Introduce el nombre de un fichero tgz, extensión incluida:'
        read files
        echo 'Introduce la ruta al directorio donde quieras decomprimir el fichero'
        read destino
        descomprimir
        ;;
-		3) exit;;
+       3) exit;;
    esac
 done
 }
