@@ -1,24 +1,24 @@
 #!/bin/bash
 
-rm -f ejercicio2.txt 2> /dev/null
+temp=`tempfile`
 
-while [ $# != 0 ]
+while true
+
 do
 
-ruta=`find . -type f -name $1 2> /dev/null`
+file=`zenity --entry --text "Introduce un nombre de fichero" 2> /dev/null`
+
+ruta=`find . -type f -name $file 2> /dev/null`
 
 if [ $ruta ]
 then
-echo "El fichero $1 se encuentra en" $ruta >> ejercicio2.txt
+echo "El fichero $file se encuentra en" $ruta >> $temp
 else
-echo "Fichero $1 no encontrado" >> ejercicio2.txt
+echo "Fichero $file no encontrado" >> $temp
 fi
-shift
 
 done
 
-more -d ejercicio2.txt
-
-rm -f ejercicio2.txt 2> /dev/null
-
-exit 0
+zenity --text-info \
+       --title="Información de los ficheros" \
+       --filename=$temp 2> /dev/null 

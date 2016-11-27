@@ -1,6 +1,6 @@
 #!/bin/bash
 
-nombre=`cat /etc/passwd | cut -f 1 -d ":" | grep "^$1"`
+nombre=`cat /etc/passwd | cut -f 1 -d ":" | grep "^$1$"`
 
 hora=`date | sed "s/  */ /g" | cut -f 4 -d " " | cut -f 1 -d ":"`
 

@@ -1,27 +1,30 @@
 #!/bin/bash
 
 temporal=`tempfile`
-info=`id $1 2> /dev/null`
 
-if [ $# -ne 1 ]
-then
-echo "Debe introducir un único parámetro"
-exit 1
-fi
+usuario=`zenity --entry --text "Introduce un nombre de usuario" 2> /dev/null`
+
+info=`id $usuario 2> /dev/null`
 
 if [ "$info" ]
 then
- echo "Info de usuario:"
- echo "$info" | cut -f1 -d " "
- echo "Info de grupo primario:"
- echo "$info" | cut -f2 -d " "
+ echo "$info" | cut -f1 -d " " >> $temporal
+ echo "Info de grupo primario:" >> $temporal
+ echo "$info" | cut -f2 -d " " >> $temporal
  if [ `echo "$info" | tr " " "\n" | wc -l` -gt 2 ]
    then
    grupos=`echo "$info" | cut -f3 -d" "`
-   echo "Info de grupos secundarios: $grupos"
+   echo "Info de grupos secundarios: $grupos" >> $temporal
  fi
+
+zenity --text-info \
+       --title="Información del usuario $usuario" \
+       --filename=$temporal 2> /dev/null 
+
 else
- echo "El usuario no existe"
+
+zenity --entry --text "Usuario no válido" 2> /dev/null
+
 fi
 
 exit 0

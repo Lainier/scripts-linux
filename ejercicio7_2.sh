@@ -2,8 +2,6 @@
 
 temporal=`tempfile`
 
-clear
-
 echo "Nombre de grupo:Número de grupo:Miembros" >> $temporal
 echo "...............:...............:........" >> $temporal
 

@@ -1,18 +1,26 @@
 #!/bin/bash
 
-nombre=`cat /etc/passwd | cut -f 1 -d ":" | grep "^$1"`
+temp=`tempfile`
+
+file=`zenity --entry --text "Introduce tu nombre" 2> /dev/null`
+
+nombre=`cat /etc/passwd | cut -f 1 -d ":" | grep "^$file$"`
 
 hora=`date | sed "s/  */ /g" | cut -f 4 -d " " | cut -f 1 -d ":"`
 
 if [ "$hora" -lt 5  ]
 then
-  echo 'Buenas noches, '$nombre
+  saludo=`echo 'Buenas noches, '$nombre`
 elif [ "$hora" -lt 13  ]
 then
-  echo 'Buenos dias, '$nombre
+  saludo=`echo 'Buenos días, '$nombre`
 elif [ "$hora" -lt 20  ]
 then
-  echo 'Buenas tardes, '$hora
+  saludo=`echo 'Buenas tardes, '$nombre`
 else
-  echo 'Buenas noches, '$hora
+  saludo=`echo 'Buenas noches, '$nombre`
 fi
+
+zenity --info \
+       --text="$saludo" \
+       --checkbox="Aceptar." 2> /dev/null 

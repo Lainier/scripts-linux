@@ -11,7 +11,7 @@ fi
 for i in *
 do
 
- if [ -x "$i" ]
+ if [ -x "$i" ] && [ -f "$i" ]
  then
  cp "$i" $dir
  suma=`expr $suma + 1`

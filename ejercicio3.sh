@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function buscar () {
+buscar () {
  for D in *
   do
     if [ -d "$D" ]

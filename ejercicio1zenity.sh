@@ -1,30 +1,34 @@
 #!/bin/bash
 
-if [ $# -ne 1 ]
+temp=`tempfile`
+
+file=`zenity --entry --text "Introduce un nombre de fichero" 2> /dev/null`
+
+if [ -f $file ]
 then
-echo "Debe introducir un único parámetro"
-exit 1
+
+if [ -r $file ]
+then
+  echo "Es legible." >> $temp
 fi
 
-if [ ! -f $1 ]
+if [ -w $file ]
 then
-  echo "$1 no es un fichero"
-  exit 2
+ echo "Es modificable." >> $temp
 fi
 
-echo "Información del fichero $1"
-
-if [ -r $1 ]
+if [ -x $file ]
 then
- echo "Es legible."
+ echo "Es ejecutable." >> $temp
 fi
 
-if [ -w $1 ]
-then
- echo "Es modificable."
+zenity --text-info \
+       --title="Información del fichero $file" \
+       --filename=$temp 2> /dev/null 
+
+else
+
+zenity --entry --text "Fichero no válido" 2> /dev/null
+
 fi
 
-if [ -x $1 ]
-then
- echo "Es ejecutable."
-fi

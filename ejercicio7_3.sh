@@ -6,7 +6,7 @@ temporal=`tempfile`
 
 clear
 
-echo "$hostname:$fecha" >> $temporal
+echo "$equipo:$fecha" >> $temporal
 echo ".........:......" >> $temporal
 
 bash ./ejercicio7_1.sh >> $temporal

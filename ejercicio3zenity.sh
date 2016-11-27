@@ -1,11 +1,11 @@
 #!/bin/bash
 
-function buscar () {
+buscar ()  {
  for D in *
   do
     if [ -d "$D" ]
     then
-         echo "Encontrado directorio $D" >> $temporal
+         echo "Encontrado directorio $D" >> $temp
          cd "$D"
          buscar
          cd ..
@@ -13,14 +13,18 @@ function buscar () {
  done
 }
 
-if [ -e "$1" ] && [ -d "$1" ]
-then
- temporal=`tempfile`
- cd "$1"
- buscar
- cat $temporal | more
-else
-echo "Directorio no válido."
-fi
+temp=`tempfile`
+
+file=`zenity --file-selection --directory --title="Selecciona un directorio" 2> /dev/null`
+
+
+
+
+cd "$file"
+buscar
+
+zenity --text-info \
+       --title="Información del directorio $file" \
+       --filename=$temp 2> /dev/null 
 
 exit 0
